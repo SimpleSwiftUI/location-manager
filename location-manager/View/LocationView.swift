@@ -19,6 +19,10 @@ struct LocationView: View {
     var body: some View {
         VStack {
             
+            Text("**Current address**:\n\(viewModel.userAddress)")
+                .padding()
+                .font(.footnote)
+            
             HStack {
                 ZStack {
                     TextField("Enter location", text: $viewModel.userAddress)
@@ -26,11 +30,13 @@ struct LocationView: View {
                         .font(.callout)
                         .fontWeight(.semibold)
                         .autocorrectionDisabled(true)
+                        .frame(width: 299)
+                        
                         .cornerRadius(15)
-                        .shadow(radius: 3)
-                        .frame(width: 333)
-                        .padding()
-                        .border(.blue)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 15).stroke(Color.blue, lineWidth: 2)
+                        )
+                        
                         .onTapGesture {
                             withAnimation {
                                 viewModel.userAddress = ""
@@ -52,13 +58,14 @@ struct LocationView: View {
                                         viewModel.clearSearchResults()
                                     } label: {
                                         Image(systemName: "xmark.circle.fill")
-                                            .foregroundColor(.white)
+                                            .foregroundColor(.black)
                                             .overlay(
                                                 Circle().stroke(Color.white, lineWidth: 3)
                                             )
+                                            .background(.white)
                                             .padding(.trailing, 10)
                                             .padding(.bottom, 4)
-                                            .background(.white)
+                                            
                                     }
                                 }
                             }
@@ -70,29 +77,12 @@ struct LocationView: View {
                                 .tint(Color.green)
                                 .padding(.bottom, 4)
                         }
-                        .frame(width: 285)
                         .background(.white)
+                        .border(.red)
                     }
                 }
                 
-                if hideForLocationSearch {
-                    Button {
-                        viewModel.userAddress = ""
-                        
-                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                        withAnimation {
-                            hideForLocationSearch.toggle()
-                        }
-                    } label: {
-                        Image(systemName: "multiply")
-                            .resizable()
-                            .foregroundColor(.blue)
-                            .frame(width: 15, height: 15)
-                            .shadow(radius: 1)
-                            .padding()
-                            .padding(.bottom, 4)
-                    }
-                }
+
             }
             
             Button {
@@ -111,7 +101,8 @@ struct LocationView: View {
             } label: {
                 Label("Use current location", systemImage: "location.fill")
                     .font(.subheadline)
-                    .foregroundColor(.green)
+                    .foregroundColor(.blue)
+                    .padding(.top, 3)
             }.alert("Location Permission", isPresented: $showLocationPermissionPreviouslyRequestedAlert) {
                 Button("Cancel", role: .cancel) {}
                 Button("Settings", action: {
