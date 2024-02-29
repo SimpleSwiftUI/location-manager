@@ -15,10 +15,8 @@ struct LocationView: View {
     @State private var showLocationPermissionPreviouslyRequestedAlert = false
     @State private var hideForLocationSearch = false    // todo rename
     
-    
     var body: some View {
         VStack {
-            
             Text("**Current address**:\n\(viewModel.userAddress)")
                 .padding()
                 .font(.footnote)
@@ -65,7 +63,6 @@ struct LocationView: View {
                                             .background(.white)
                                             .padding(.trailing, 10)
                                             .padding(.bottom, 4)
-                                            
                                     }
                                 }
                             }
@@ -81,8 +78,6 @@ struct LocationView: View {
                         .border(.red)
                     }
                 }
-                
-
             }
             
             Button {
