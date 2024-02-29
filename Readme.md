@@ -24,7 +24,7 @@ To integrate "location-manager" into your SwiftUI project, follow these steps:
 1. Clone the repository or download the source code.
 2. Ensure your project targets iOS 16.4 or later.
 3. Import the project files into your SwiftUI project.
-4. Configure your project's Info.plist to include the necessary permissions for location services (see below).
+4. Configure your project's `Info.plist` to include the necessary permissions for location services (see below).
 
 ## Permissions
 
